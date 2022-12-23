@@ -1,6 +1,7 @@
 extension LinkedList: Sequence {
+  @inlinable
   public func makeIterator() -> some IteratorProtocol {
-    var currentNode = head
+    var currentNode = firstNode
     let iterator = AnyIterator {
       if let node = currentNode {
         currentNode = node.next

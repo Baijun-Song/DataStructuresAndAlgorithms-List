@@ -1,30 +1,32 @@
 extension LinkedList {
+  @inlinable
   public mutating func breakIntoUnsafeNodes() -> [UnsafeNode] {
-    _update()
+    update()
     var result: [UnsafeNode] = []
-    var currentNode = _head
+    var currentNode = head
     while let node = currentNode {
       result.append(UnsafeNode(node))
-      currentNode = node._next
-      node._next = nil
+      currentNode = node.next
+      node.next = nil
     }
-    _head = nil
-    _tail = nil
-    _checkInvariants()
+    head = nil
+    tail = nil
+    checkInvariants()
     return result
   }
   
+  @inlinable
   public init(unsafeNodes: [UnsafeNode]) {
     guard !unsafeNodes.isEmpty else {
       return
     }
-    _head = unsafeNodes[0]._storage
-    var currentNode = _head!
+    head = unsafeNodes[0].storage
+    var currentNode = head!
     for unsafeNode in unsafeNodes[1...] {
-      currentNode._next = unsafeNode._storage
-      currentNode = currentNode._next!
+      currentNode.next = unsafeNode.storage
+      currentNode = currentNode.next!
     }
-    _tail = currentNode
-    _checkInvariants()
+    tail = currentNode
+    checkInvariants()
   }
 }
