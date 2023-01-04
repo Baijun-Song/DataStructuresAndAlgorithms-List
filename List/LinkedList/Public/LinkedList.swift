@@ -1,9 +1,9 @@
 public struct LinkedList<Element> {
   @usableFromInline
-  var head: InternalNode?
+  var head: Node?
   
   @usableFromInline
-  weak var tail: InternalNode? 
+  weak var tail: Node? 
   
   @inlinable @inline(__always)
   public init() {}
@@ -20,148 +20,97 @@ public struct LinkedList<Element> {
 
 extension LinkedList {
   @inlinable @inline(__always)
-  public var firstNode: Node? {
-    if let head = head {
-      return Node(head)
-    } else {
-      return nil
-    } 
-  }
-  
-  @inlinable @inline(__always)
-  public var lastNode: Node? {
-    if let tail = tail {
-      return Node(tail)
-    } else {
-      return nil
-    }
-  }
-  
-  @inlinable @inline(__always)
   public var isEmpty: Bool {
     head == nil
   }
-  
+
   @inlinable
   public var count: Int {
-    var count = 0
+    var result = 0
     var currentNode = head
     while let node = currentNode {
-      count += 1
+      result += 1
       currentNode = node.next
     }
-    return count
+    return result
   }
-  
+
   @inlinable
-  @discardableResult
-  public mutating func prepend(
-    _ newElement: Element
-  ) -> Node {
+  public mutating func prepend(_ newElement: Element) {
     update()
-    head = InternalNode(value: newElement, next: head)
+    let newNode = Node(value: newElement, next: head)
+    head = newNode
     if tail == nil {
-      tail = head
+      tail = newNode
     }
     checkInvariants()
-    return Node(head!)
   }
-  
+
   @inlinable
-  @discardableResult
-  public mutating func append(
-    _ newElement: Element
-  ) -> Node {
+  public mutating func append(_ newElement: Element) {
     update()
-    guard let tailNode = tail else {
-      return prepend(newElement)
+    guard let tail = tail else {
+      prepend(newElement)
+      return
     }
-    tailNode.next = InternalNode(value: newElement)
-    tail = tailNode.next
+    let newNode = Node(value: newElement)
+    tail.next = newNode
+    self.tail = newNode
     checkInvariants()
-    return Node(tail!)
   }
-  
+
   @inlinable
-  @discardableResult
   public mutating func insert(
     _ newElement: Element,
-    after node: Node
-  ) -> Node {
-    let nodeCopy = update(withNode: node) ?? node
-    let validNode = nodeCopy.storage
-    if validNode === tail {
+    after index: Index
+  ) {
+    guard let node = update(withIndex: index).node else {
+      preconditionFailure()
+    }
+    if node === tail {
       return append(newElement)
     } else {
-      validNode.next = InternalNode(value: newElement, next: validNode.next)
+      let newNode = Node(value: newElement, next: node.next)
+      node.next = newNode
       checkInvariants()
-      return Node(validNode.next!)
     }
   }
-  
+
   @inlinable
   public mutating func popFirst() -> Element? {
     update()
-    guard let headNode = head else {
+    guard let head = head else {
       return nil
     }
-    let result = headNode.value
-    head = headNode.next
-    if head == nil {
+    let removedElement = head.value
+    self.head = head.next
+    if self.head == nil {
       tail = nil
     }
     checkInvariants()
-    return result
+    return removedElement
   }
-  
-  @inlinable @inline(__always)
-  @discardableResult
-  public mutating func removeFirst() -> Element {
-    if let removedElement = popFirst() {
-      return removedElement
-    } else {
-      preconditionFailure()
-    }
-  }
-  
-  @inlinable
-  @discardableResult
-  public mutating func removeLast() -> Element {
-    update()
-    guard let head = head, head.next != nil else {
-      return removeFirst()
-    }
-    var previousNode = head
-    var currentNode = head
-    while let nextNode = currentNode.next {
-      previousNode = currentNode
-      currentNode = nextNode
-    }
-    previousNode.next = nil
-    tail = previousNode
-    checkInvariants()
-    return currentNode.value
-  }
-  
+
   @inlinable
   @discardableResult
   public mutating func remove(
-    after node: Node
+    after index: Index
   ) -> Element {
-    let nodeCopy = update(withNode: node) ?? node
-    let validNode = nodeCopy.storage
-    guard let nextNode = validNode.next else {
+    guard
+      let node = update(withIndex: index).node,
+      let nextNode = node.next
+    else {
       preconditionFailure()
     }
     let removedElement = nextNode.value
     if nextNode === tail {
-      tail = validNode
+      tail = node
     }
-    validNode.next = nextNode.next
+    node.next = nextNode.next
     checkInvariants()
     return removedElement
   }
-  
+
   @inlinable
   public mutating func reverse() {
     update()
@@ -170,15 +119,15 @@ extension LinkedList {
     var currentNode = head?.next
     previousNode?.next = nil
     while currentNode != nil {
-      let next = currentNode?.next
+      let nextNode = currentNode?.next
       currentNode?.next = previousNode
       previousNode = currentNode
-      currentNode = next
+      currentNode = nextNode
     }
     head = previousNode
     checkInvariants()
   }
-  
+
   @inlinable @inline(__always)
   public func reversed() -> Self {
     var reversed = self

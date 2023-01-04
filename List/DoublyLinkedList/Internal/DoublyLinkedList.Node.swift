@@ -1,20 +1,20 @@
 extension DoublyLinkedList {
   @usableFromInline
-  final class InternalNode {
+  final class Node {
     @usableFromInline
     var value: Element
     
     @usableFromInline
-    var next: InternalNode?
+    var next: Node?
     
     @usableFromInline
-    weak var prev: InternalNode?
+    weak var prev: Node?
     
     @inlinable @inline(__always)
     init(
       value: Element,
-      next: InternalNode? = nil,
-      prev: InternalNode? = nil
+      next: Node? = nil,
+      prev: Node? = nil
     ) {
       self.value = value
       self.next = next

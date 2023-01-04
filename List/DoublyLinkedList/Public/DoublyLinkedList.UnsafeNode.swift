@@ -1,4 +1,4 @@
-extension LinkedList {
+extension DoublyLinkedList {
   public struct UnsafeNode {
     @usableFromInline
     var storage: Node

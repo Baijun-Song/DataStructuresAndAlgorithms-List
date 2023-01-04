@@ -1,4 +1,4 @@
-extension LinkedList {
+extension DoublyLinkedList {
   @inlinable
   public mutating func breakIntoUnsafeNodes() -> [UnsafeNode] {
     update()
@@ -8,6 +8,7 @@ extension LinkedList {
       result.append(UnsafeNode(node))
       currentNode = node.next
       node.next = nil
+      currentNode?.prev = nil
     }
     head = nil
     tail = nil
