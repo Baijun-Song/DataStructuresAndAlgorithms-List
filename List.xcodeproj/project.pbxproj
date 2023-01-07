@@ -27,6 +27,8 @@
 		0BE536BF29560683005B165D /* DoublyLinkedList.Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE536BE29560683005B165D /* DoublyLinkedList.Node.swift */; };
 		0BE536C32956A54D005B165D /* DoublyLinkedList+Invariants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE536C22956A54D005B165D /* DoublyLinkedList+Invariants.swift */; };
 		0BE536C52956A565005B165D /* DoublyLinkedList+CopyOnWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE536C42956A565005B165D /* DoublyLinkedList+CopyOnWrite.swift */; };
+		0BE677ED2967E78F00DC3276 /* LinkedList+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE677EC2967E78F00DC3276 /* LinkedList+Equatable.swift */; };
+		0BE677EF2967E7BC00DC3276 /* DoublyLinkedList+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE677EE2967E7BC00DC3276 /* DoublyLinkedList+Equatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		0BE536BE29560683005B165D /* DoublyLinkedList.Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoublyLinkedList.Node.swift; sourceTree = "<group>"; };
 		0BE536C22956A54D005B165D /* DoublyLinkedList+Invariants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoublyLinkedList+Invariants.swift"; sourceTree = "<group>"; };
 		0BE536C42956A565005B165D /* DoublyLinkedList+CopyOnWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoublyLinkedList+CopyOnWrite.swift"; sourceTree = "<group>"; };
+		0BE677EC2967E78F00DC3276 /* LinkedList+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkedList+Equatable.swift"; sourceTree = "<group>"; };
+		0BE677EE2967E7BC00DC3276 /* DoublyLinkedList+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoublyLinkedList+Equatable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 				0BAA462629082E3500F36AB6 /* LinkedList.swift */,
 				0B5C5FAA290ABB090069F765 /* LinkedList.Index.swift */,
 				0B5C5FC5290B66680069F765 /* LinkedList.UnsafeNode.swift */,
+				0BE677EC2967E78F00DC3276 /* LinkedList+Equatable.swift */,
 				0BA76347292681600080BF75 /* LinkedList+Unsafe.swift */,
 				0BAA46312909482D00F36AB6 /* LinkedList+Collection.swift */,
 				0BAA462A29093ABF00F36AB6 /* LinkedList+CustomStringConvertable.swift */,
@@ -137,6 +142,7 @@
 				0BE536BB2956065B005B165D /* DoublyLinkedList.swift */,
 				0B77E12D2958A7D800AB5FDF /* DoublyLinkedList.Index.swift */,
 				0B77E133295DED1D00AB5FDF /* DoublyLinkedList.UnsafeNode.swift */,
+				0BE677EE2967E7BC00DC3276 /* DoublyLinkedList+Equatable.swift */,
 				0B77E135295DEDD600AB5FDF /* DoublyLinkedList+Unsafe.swift */,
 				0B77E12B2958A78000AB5FDF /* DoublyLinkedList+BidirectionalCollection.swift */,
 				0B77E12F29596A1200AB5FDF /* DoublyLinkedList+RangeReplaceableCollection.swift */,
@@ -246,6 +252,7 @@
 				0BE536C32956A54D005B165D /* DoublyLinkedList+Invariants.swift in Sources */,
 				0B5C5FE3290BDCA10069F765 /* LinkedList+Invariants.swift in Sources */,
 				0BE536BC2956065B005B165D /* DoublyLinkedList.swift in Sources */,
+				0BE677ED2967E78F00DC3276 /* LinkedList+Equatable.swift in Sources */,
 				0BAA462729082E3500F36AB6 /* LinkedList.swift in Sources */,
 				0BAA462B29093ABF00F36AB6 /* LinkedList+CustomStringConvertable.swift in Sources */,
 				0BE536C52956A565005B165D /* DoublyLinkedList+CopyOnWrite.swift in Sources */,
@@ -253,6 +260,7 @@
 				0B5C5FC6290B66680069F765 /* LinkedList.UnsafeNode.swift in Sources */,
 				0B77E12C2958A78000AB5FDF /* DoublyLinkedList+BidirectionalCollection.swift in Sources */,
 				0BAA462929082EA500F36AB6 /* LinkedList.Node.swift in Sources */,
+				0BE677EF2967E7BC00DC3276 /* DoublyLinkedList+Equatable.swift in Sources */,
 				0B77E12E2958A7D800AB5FDF /* DoublyLinkedList.Index.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
