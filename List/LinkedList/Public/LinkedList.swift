@@ -27,10 +27,10 @@ extension LinkedList {
   @inlinable
   public var count: Int {
     var result = 0
-    var currentNode = head
-    while let node = currentNode {
+    var currNode = head
+    while let node = currNode {
       result += 1
-      currentNode = node.next
+      currNode = node.next
     }
     return result
   }
@@ -115,16 +115,16 @@ extension LinkedList {
   public mutating func reverse() {
     update()
     tail = head
-    var previousNode = head
-    var currentNode = head?.next
-    previousNode?.next = nil
-    while currentNode != nil {
-      let nextNode = currentNode?.next
-      currentNode?.next = previousNode
-      previousNode = currentNode
-      currentNode = nextNode
+    var prevNode = head
+    var currNode = head?.next
+    prevNode?.next = nil
+    while currNode != nil {
+      let nextNode = currNode?.next
+      currNode?.next = prevNode
+      prevNode = currNode
+      currNode = nextNode
     }
-    head = previousNode
+    head = prevNode
     checkInvariants()
   }
 

@@ -90,13 +90,13 @@ extension DoublyLinkedList: RangeReplaceableCollection {
     where shouldBeRemoved: (Element) throws -> Bool
   ) rethrows {
     update()
-    var currentIndex = startIndex
-    while currentIndex < endIndex {
-      let nextIndex = index(after: currentIndex)
-      if try shouldBeRemoved(self[currentIndex]) {
-        remove(at: currentIndex)
+    var currIndex = startIndex
+    while currIndex < endIndex {
+      let nextIndex = index(after: currIndex)
+      if try shouldBeRemoved(self[currIndex]) {
+        remove(at: currIndex)
       }
-      currentIndex = nextIndex
+      currIndex = nextIndex
     }
   }
 }

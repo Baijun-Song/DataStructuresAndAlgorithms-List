@@ -18,10 +18,10 @@ extension DoublyLinkedList {
   @inlinable
   public var count: Int {
     var result = 0
-    var currentNode = head
-    while let node = currentNode {
+    var currNode = head
+    while let node = currNode {
       result += 1
-      currentNode = node.next
+      currNode = node.next
     }
     return result
   }
@@ -92,12 +92,12 @@ extension DoublyLinkedList {
   @inlinable
   public mutating func popLast() -> Element? {
     update()
-    guard let tail = tail, let previousNode = tail.prev else {
+    guard let tail = tail, let prevNode = tail.prev else {
       return popFirst()
     }
     let removedElement = tail.value
-    self.tail = previousNode
-    previousNode.next = nil
+    self.tail = prevNode
+    prevNode.next = nil
     checkInvariants()
     return removedElement
   }
@@ -127,18 +127,18 @@ extension DoublyLinkedList {
   public mutating func reverse() {
     update()
     tail = head
-    var previousNode = head
-    var currentNode = head?.next
-    previousNode?.next = nil
-    previousNode?.prev = currentNode
-    while currentNode != nil {
-      let nextNode = currentNode?.next
-      currentNode?.next = previousNode
-      currentNode?.prev = nextNode
-      previousNode = currentNode
-      currentNode = nextNode
+    var prevNode = head
+    var head?.next
+    prevNode?.next = nil
+    prevNode?.prev = currNode
+    while currNode != nil {
+      let nextNode = currNode?.next
+      currNode?.next = prevNode
+      currNode?.prev = nextNode
+      prevNode = currNode
+      currNode = nextNode
     }
-    head = previousNode
+    head = prevNode
     checkInvariants()
   }
   

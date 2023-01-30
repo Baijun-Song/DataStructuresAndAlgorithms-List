@@ -8,18 +8,28 @@ extension DoublyLinkedList {
   mutating func update(
     withIndex index: Index
   ) -> Index {
-    _update(withFirstIndex: index, withSecondIndex: nil).firstIndex!
+    let updated = _update(withFirstIndex: index, withSecondIndex: nil)
+    guard let firstIndex = updated.firstIndex else {
+      preconditionFailure()
+    }
+    return firstIndex
   }
   
   @inlinable @inline(__always)
   mutating func update(
     withRange range: Range<Index>
   ) -> Range<Index> {
-    let (lowerBound, upperBound) = _update(
+    let updated = _update(
       withFirstIndex: range.lowerBound,
       withSecondIndex: range.upperBound
     )
-    return lowerBound!..<upperBound!
+    guard
+      let lowerBound = updated.firstIndex,
+      let upperBound = updated.secondIndex
+    else {
+      preconditionFailure()
+    }
+    return lowerBound..<upperBound
   }
   
   @usableFromInline
@@ -30,37 +40,37 @@ extension DoublyLinkedList {
   ) -> (firstIndex: Index?, secondIndex: Index?) {
     guard
       !isKnownUniquelyReferenced(&head),
-      var currentOldNode = head
+      var currOldNode = head
     else {
       return (firstIndex, secondIndex)
     }
-    var currentNewNode = Node(value: currentOldNode.value)
-    head = currentNewNode
-    var firstUpdatedIndex = firstIndex
-    var secondUpdatedIndex = secondIndex
-    if currentOldNode === firstIndex?.node {
-      firstUpdatedIndex = Index(node: currentNewNode)
+    var currNewNode = Node(value: currOldNode.value)
+    head = currNewNode
+    var firstUpdatedIndex: Index?
+    var secondUpdatedIndex: Index?
+    if currOldNode === firstIndex?.node {
+      firstUpdatedIndex = Index(node: currNewNode)
     }
-    if currentOldNode === secondIndex?.node {
-      secondUpdatedIndex = Index(node: currentNewNode)
+    if currOldNode === secondIndex?.node {
+      secondUpdatedIndex = Index(node: currNewNode)
     }
     
-    while let nextOldNode = currentOldNode.next {
+    while let nextOldNode = currOldNode.next {
       let newNode = Node(
         value: nextOldNode.value,
-        prev: currentNewNode
+        prev: currNewNode
       )
-      currentNewNode.next = newNode
-      currentOldNode = nextOldNode
-      currentNewNode = newNode
-      if currentOldNode === firstIndex?.node {
-        firstUpdatedIndex = Index(node: currentNewNode)
+      currNewNode.next = newNode
+      currOldNode = nextOldNode
+      currNewNode = newNode
+      if currOldNode === firstIndex?.node {
+        firstUpdatedIndex = Index(node: currNewNode)
       }
-      if currentOldNode === secondIndex?.node {
-        secondUpdatedIndex = Index(node: currentNewNode)
+      if currOldNode === secondIndex?.node {
+        secondUpdatedIndex = Index(node: currNewNode)
       }
     }
-    tail = currentNewNode
+    tail = currNewNode
     return (firstUpdatedIndex, secondUpdatedIndex)
   }
 }

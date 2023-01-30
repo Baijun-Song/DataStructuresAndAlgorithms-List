@@ -8,7 +8,10 @@ extension LinkedList {
   mutating func update(
     withIndex index: Index
   ) -> Index {
-    _update(withIndex: index)!
+    guard let updatedIndex =  _update(withIndex: index) else {
+      preconditionFailure()
+    }
+    return updatedIndex
   }
   
   @usableFromInline
@@ -18,27 +21,27 @@ extension LinkedList {
   ) -> Index? {
     guard
       !isKnownUniquelyReferenced(&head),
-      var currentOldNode = head
+      var currOldNode = head
     else {
       return index
     }
-    var currentNewNode = Node(value: currentOldNode.value)
-    head = currentNewNode
-    var updatedIndex = index
-    if currentOldNode === index?.node {
-      updatedIndex = Index(node: currentNewNode)
+    var currNewNode = Node(value: currOldNode.value)
+    head = currNewNode
+    var updatedIndex: Index?
+    if currOldNode === index?.node {
+      updatedIndex = Index(node: currNewNode)
     }
     
-    while let nextOldNode = currentOldNode.next {
+    while let nextOldNode = currOldNode.next {
       let newNode = Node(value: nextOldNode.value)
-      currentNewNode.next = newNode
-      currentOldNode = nextOldNode
-      currentNewNode = newNode
-      if currentOldNode === index?.node {
-        updatedIndex = Index(node: currentNewNode)
+      currNewNode.next = newNode
+      currOldNode = nextOldNode
+      currNewNode = newNode
+      if currOldNode === index?.node {
+        updatedIndex = Index(node: currNewNode)
       }
     }
-    tail = currentNewNode
+    tail = currNewNode
     return updatedIndex
   }
 }

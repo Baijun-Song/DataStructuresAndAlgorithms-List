@@ -22,17 +22,17 @@ extension DoublyLinkedList {
     
     @inlinable
     public static func < (lhs: Self, rhs: Self) -> Bool {
-      guard var currentNode = lhs.node else {
+      guard var currNode = lhs.node else {
         return false
       }
       if rhs.node == nil {
         return true
       }
-      while let nextNode = currentNode.next {
+      while let nextNode = currNode.next {
         if nextNode === rhs.node {
           return true
         }
-        currentNode = nextNode
+        currNode = nextNode
       }
       return false
     }

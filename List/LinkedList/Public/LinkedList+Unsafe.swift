@@ -3,10 +3,10 @@ extension LinkedList {
   public mutating func breakIntoUnsafeNodes() -> [UnsafeNode] {
     update()
     var result: [UnsafeNode] = []
-    var currentNode = head
-    while let node = currentNode {
+    var currNode = head
+    while let node = currNode {
       result.append(UnsafeNode(node))
-      currentNode = node.next
+      currNode = node.next
       node.next = nil
     }
     head = nil
@@ -21,12 +21,12 @@ extension LinkedList {
       return
     }
     head = firstUnsafeNode.storage
-    var currentNode = firstUnsafeNode.storage
+    var currNode = firstUnsafeNode.storage
     for unsafeNode in unsafeNodes.dropFirst() {
-      currentNode.next = unsafeNode.storage
-      currentNode = unsafeNode.storage
+      currNode.next = unsafeNode.storage
+      currNode = unsafeNode.storage
     }
-    tail = currentNode
+    tail = currNode
     checkInvariants()
   }
 }
